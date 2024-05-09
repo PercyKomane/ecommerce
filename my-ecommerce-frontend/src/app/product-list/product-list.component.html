@@ -3,19 +3,35 @@
 <app-header></app-header>
 
 <div class="container">
-  <h1>Products</h1>
-  <div class="row">
-    <div class="col-md-4" *ngFor="let product of products">
-      <div class="card mb-4">
-        <img [src]="product.imageUrl" class="card-img-top" alt="Product Image">
-        <div class="card-body">
-          <h5 class="card-title">{{ product.name }}</h5>
-          <p class="card-text">{{ product.description }}</p>
-          <p class="card-text"><strong>Price:</strong> {{ product.price }}</p>
-        </div>
-      </div>
-    </div>
-  </div>
+  <h1 class="text-center">Products</h1>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Price</th>
+        <!-- Placeholder for "See More" button -->
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let product of products">
+        <td>{{ product.name }}</td>
+        <td>
+          <div *ngIf="!product.showFullDescription && product.description.length > 50">
+            {{ product.description.slice(0, 50) }}...
+            <button class="btn btn-link" (click)="toggleDescription(product)">
+              See More
+            </button>
+          </div>
+          <div *ngIf="product.showFullDescription || product.description.length <= 50">
+            {{ product.description }}
+          </div>
+        </td>
+        <td>R{{ product.price }}</td>
+         <!-- Placeholder for "See More" button -->
+      </tr>
+    </tbody>
+  </table>
 </div>
 
 <app-footer></app-footer>

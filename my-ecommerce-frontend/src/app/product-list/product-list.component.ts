@@ -14,7 +14,7 @@ export class ProductListComponent implements OnInit {
   constructor(private productService: ProductService) { }
 
   ngOnInit(): void {
-    this.productService.getAllProducts().subscribe(
+    this.productService.getProducts().subscribe(
       (response: any) => {
         this.products = response;
       },
@@ -22,5 +22,9 @@ export class ProductListComponent implements OnInit {
         console.error('Error fetching products:', error);
       }
     );
+  }
+
+  toggleDescription(product: any): void {
+    product.showFullDescription = !product.showFullDescription;
   }
 }

@@ -1,10 +1,35 @@
 /* product-list.component.css */
 
 .container {
-    margin-top: 20px;
+    margin-top: 50px;
   }
   
-  .card {
-    max-width: 300px;
+  .table {
+    width: 80%;
+    margin: 0 auto;
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .table th {
+    background-color: #343a40;
+    color: #ffffff;
+  }
+  
+  .table td, .table th {
+    text-align: center;
+    vertical-align: middle !important;
+    border: 1px solid #343a40;
+  }
+  
+  .btn-link {
+    color: #007bff;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  
+  .btn-link:hover {
+    text-decoration: underline;
   }
   

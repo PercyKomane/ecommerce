@@ -1,20 +1,18 @@
+// product.service.ts
+
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
+  private apiUrl = 'http://127.0.0.1:8000/products/';
 
   constructor(private http: HttpClient) { }
 
-  getAllProducts() {
-    return this.http.get<any[]>('http://localhost:8000/api/products/'); // Replace with your Django API URL
+  getProducts(): Observable<any> {
+    return this.http.get<any>(this.apiUrl);
   }
-
-  getProductById(productId: number) {
-    return this.http.get<any>(`http://localhost:8000/api/products/${productId}/`);
-  }
-
-  // Implement other API calls as needed
 }
