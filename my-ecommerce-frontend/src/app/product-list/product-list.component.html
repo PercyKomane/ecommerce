@@ -4,13 +4,33 @@
 
 <div class="container">
   <h1 class="text-center">Products</h1>
+  <div class="row mb-3">
+    <div class="col-md-4">
+      <h2>Add New Product</h2>
+      <form (submit)="addProduct()">
+        <div class="form-group">
+          <label for="productName">Name</label>
+          <input type="text" class="form-control" id="productName" name="productName" [(ngModel)]="newProduct.name" required>
+        </div>
+        <div class="form-group">
+          <label for="productDescription">Description</label>
+          <textarea class="form-control" id="productDescription" name="productDescription" [(ngModel)]="newProduct.description" required></textarea>
+        </div>
+        <div class="form-group">
+          <label for="productPrice">Price</label>
+          <input type="number" class="form-control" id="productPrice" name="productPrice" [(ngModel)]="newProduct.price" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Add Product</button>
+      </form>
+    </div>
+  </div>
   <table class="table table-striped">
     <thead>
       <tr>
         <th>Name</th>
         <th>Description</th>
         <th>Price</th>
-        <!-- Placeholder for "See More" button -->
+        <th>Actions</th>
       </tr>
     </thead>
     <tbody>
@@ -28,7 +48,10 @@
           </div>
         </td>
         <td>R{{ product.price }}</td>
-         <!-- Placeholder for "See More" button -->
+        <td>
+          <button class="btn btn-sm btn-info" (click)="editProduct(product.id)">Edit</button>
+          <button class="btn btn-sm btn-danger" (click)="deleteProduct(product.id)">Delete</button>
+        </td>
       </tr>
     </tbody>
   </table>

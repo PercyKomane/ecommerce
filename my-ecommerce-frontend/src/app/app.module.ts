@@ -1,6 +1,9 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms'; // Import FormsModule
+import { provideHttpClient } from '@angular/common/http';
+import { withFetch } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -25,10 +28,12 @@ import { ProductService } from './services/product.service';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    FormsModule, // Add FormsModule
     HttpClientModule
   ],
   providers: [
     provideClientHydration(),
+    provideHttpClient(withFetch()), // Add withFetch()
     ProductService
   ],
   bootstrap: [AppComponent]

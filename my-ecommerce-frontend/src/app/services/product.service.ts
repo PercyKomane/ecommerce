@@ -12,7 +12,28 @@ export class ProductService {
 
   constructor(private http: HttpClient) { }
 
+  // Get all products
   getProducts(): Observable<any> {
     return this.http.get<any>(this.apiUrl);
+  }
+
+  // Get a single product by ID
+  getProductById(productId: number): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}${productId}/`);
+  }
+
+  // Add a new product
+  addProduct(productData: any): Observable<any> {
+    return this.http.post<any>(this.apiUrl, productData);
+  }
+
+  // Update an existing product
+  updateProduct(productId: number, productData: any): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}${productId}/`, productData);
+  }
+
+  // Delete a product
+  deleteProduct(productId: number): Observable<any> {
+    return this.http.delete<any>(`${this.apiUrl}${productId}/`);
   }
 }
