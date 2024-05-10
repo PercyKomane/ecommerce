@@ -9,16 +9,24 @@
       <h2>Add New Product</h2>
       <form (submit)="addProduct()">
         <div class="form-group">
-          <label for="productName">Name</label>
+          <label for="productName">Name: </label>
           <input type="text" class="form-control" id="productName" name="productName" [(ngModel)]="newProduct.name" required>
         </div>
         <div class="form-group">
-          <label for="productDescription">Description</label>
+          <label for="productDescription">Description: </label>
           <textarea class="form-control" id="productDescription" name="productDescription" [(ngModel)]="newProduct.description" required></textarea>
         </div>
         <div class="form-group">
-          <label for="productPrice">Price</label>
+          <label for="productPrice">Price: </label>
           <input type="number" class="form-control" id="productPrice" name="productPrice" [(ngModel)]="newProduct.price" required>
+        </div>
+        <div class="form-group">
+          <label for="productCategory">Category: </label>
+          <input type="number" class="form-control" id="productCategory" name="productCategory" [(ngModel)]="newProduct.category" required>
+        </div>
+        <div class="form-group">
+          <label for="productQuantity">Quantity: </label>
+          <input type="number" class="form-control" id="productQuantity" name="productQuantity" [(ngModel)]="newProduct.quantity_available" required>
         </div>
         <button type="submit" class="btn btn-primary">Add Product</button>
       </form>
@@ -30,6 +38,8 @@
         <th>Name</th>
         <th>Description</th>
         <th>Price</th>
+        <th>Category</th>
+        <th>Quantity</th>
         <th>Actions</th>
       </tr>
     </thead>
@@ -48,11 +58,26 @@
           </div>
         </td>
         <td>R{{ product.price }}</td>
+        <td>{{ product.category }}</td>
+        <td>{{ product.quantity_available }}</td>
         <td>
           <button class="btn btn-sm btn-info" (click)="editProduct(product.id)">Edit</button>
           <button class="btn btn-sm btn-danger" (click)="deleteProduct(product.id)">Delete</button>
         </td>
       </tr>
+    </ng-container>
+      <ng-template #editForm>
+        <tr>
+          <td><input type="text" [(ngModel)]="product.name"></td>
+          <td><input type="text" [(ngModel)]="product.description"></td>
+          <td><input type="number" [(ngModel)]="product.price"></td>
+          <td>
+            <button class="btn btn-sm btn-primary" (click)="updateProduct(product)">Save</button>
+            <button class="btn btn-sm btn-secondary" (click)="cancelEdit()">Cancel</button>
+          </td>
+        </tr>
+      </ng-template>
+    </ng-container>
     </tbody>
   </table>
 </div>
