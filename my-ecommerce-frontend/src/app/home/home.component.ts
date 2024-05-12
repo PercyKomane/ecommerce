@@ -8,13 +8,14 @@ import { ProductService } from '../services/product.service';
 })
 export class HomeComponent implements OnInit {
   products: any[] = [];
+  product: any = {};
   newProduct: any = {};
   editingProductId: number | null = null;
 
   constructor(private productService: ProductService) { }
 
   ngOnInit(): void {
-    this.getProducts();
+    this.fetchProduct(this.product);
   }
 
   getProducts(): void {
@@ -24,6 +25,17 @@ export class HomeComponent implements OnInit {
       },
       (error: any) => {
         console.error('Error fetching products:', error);
+      }
+    );
+  }
+
+  fetchProduct(productId: number): void {
+    this.productService.getProductById(productId).subscribe(
+      (response: any) => {
+        this.product = response;
+      },
+      (error: any) => {
+        console.error('Error fetching product:', error);
       }
     );
   }

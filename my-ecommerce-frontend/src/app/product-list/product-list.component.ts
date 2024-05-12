@@ -10,6 +10,7 @@ import { ProductService } from '../services/product.service';
 })
 export class ProductListComponent implements OnInit {
   products: any[] = [];
+  product: any = {};
   newProduct: any = {};
   editingProductId: number | null = null;
 
@@ -78,6 +79,17 @@ export class ProductListComponent implements OnInit {
       },
       (error: any) => {
         console.error('Error deleting product:', error);
+      }
+    );
+  }
+
+  fetchProduct(productId: number): void {
+    this.productService.getProductById(productId).subscribe(
+      (response: any) => {
+        this.product = response;
+      },
+      (error: any) => {
+        console.error('Error fetching product:', error);
       }
     );
   }
