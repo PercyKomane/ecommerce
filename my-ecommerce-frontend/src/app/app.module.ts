@@ -16,6 +16,7 @@ import { RegisterComponent } from './register/register.component';
 import { ProductService } from './services/product.service';
 import { HomeComponent } from './home/home.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
