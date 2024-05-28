@@ -13,6 +13,7 @@ export class ProductListComponent implements OnInit {
   product: any = {};
   newProduct: any = {};
   editingProductId: number | null = null;
+  selectedFile: File | null = null;
 
   constructor(private productService: ProductService) { }
 
@@ -31,15 +32,33 @@ export class ProductListComponent implements OnInit {
     );
   }
 
+  onFileChange(event: any): void {
+    if (event.target.files.length > 0) {
+      this.selectedFile = event.target.files[0];
+    }
+  }
+
+
   toggleDescription(product: any): void {
     product.showFullDescription = !product.showFullDescription;
   }
 
   addProduct(): void {
-    this.productService.addProduct(this.newProduct).subscribe(
+    const formData = new FormData();
+    formData.append('name', this.newProduct.name);
+    formData.append('description', this.newProduct.description);
+    formData.append('price', this.newProduct.price);
+    formData.append('category', this.newProduct.category);
+    formData.append('quantity_available', this.newProduct.quantity_available);
+    if (this.selectedFile) {
+      formData.append('image', this.selectedFile);
+    }
+
+    this.productService.addProduct(formData).subscribe(
       (response: any) => {
         this.products.push(response);
         this.newProduct = {};
+        this.selectedFile = null;
       },
       (error: any) => {
         console.error('Error adding product:', error);
