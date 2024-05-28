@@ -11,6 +11,11 @@ class ProductSerializer(serializers.ModelSerializer):
         model = Product
         fields = '__all__'
 
+    def update(self, instance, validated_data):
+        if 'image' in validated_data:
+            instance.image.delete(save=False)
+        return super().update(instance, validated_data)
+
 class OrderItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = OrderItem

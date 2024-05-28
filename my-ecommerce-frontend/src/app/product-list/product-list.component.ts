@@ -10,7 +10,6 @@ import { ProductService } from '../services/product.service';
 })
 export class ProductListComponent implements OnInit {
   products: any[] = [];
-  product: any = {};
   newProduct: any = {};
   editingProductId: number | null = null;
   selectedFile: File | null = null;
@@ -36,11 +35,6 @@ export class ProductListComponent implements OnInit {
     if (event.target.files.length > 0) {
       this.selectedFile = event.target.files[0];
     }
-  }
-
-
-  toggleDescription(product: any): void {
-    product.showFullDescription = !product.showFullDescription;
   }
 
   addProduct(): void {
@@ -71,19 +65,34 @@ export class ProductListComponent implements OnInit {
   }
 
   updateProduct(product: any): void {
-    this.productService.updateProduct(product.id, product).subscribe(
+    const formData = new FormData();
+    formData.append('name', product.name);
+    formData.append('description', product.description);
+    formData.append('price', product.price);
+    formData.append('category', product.category);
+    formData.append('quantity_available', product.quantity_available);
+    if (this.selectedFile) {
+      formData.append('image', this.selectedFile);
+    }
+
+    this.productService.updateProduct(product.id, formData).subscribe(
       (response: any) => {
-        // Update product in the list
         const index = this.products.findIndex(p => p.id === product.id);
         if (index !== -1) {
           this.products[index] = response;
         }
         this.editingProductId = null;
+        this.selectedFile = null;
       },
       (error: any) => {
         console.error('Error updating product:', error);
       }
     );
+  }
+
+  deleteImage(product: any): void {
+    product.image = null;
+    this.updateProduct(product);
   }
 
   cancelEdit(): void {
@@ -93,7 +102,6 @@ export class ProductListComponent implements OnInit {
   deleteProduct(productId: number): void {
     this.productService.deleteProduct(productId).subscribe(
       () => {
-        // Remove the deleted product from the list
         this.products = this.products.filter(p => p.id !== productId);
       },
       (error: any) => {

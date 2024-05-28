@@ -71,7 +71,6 @@
               <button class="btn btn-sm btn-info" (click)="editProduct(product.id)">Edit</button>
               <button class="btn btn-sm btn-danger" (click)="deleteProduct(product.id)">Delete</button>
             </td>
-            <td><img src="{{ product.image }}" alt="" width="100"></td>
           </tr>
         </ng-container>
         <ng-template #editForm>
@@ -82,12 +81,17 @@
             <td><input type="text" [(ngModel)]="product.category"></td>
             <td><input type="number" [(ngModel)]="product.quantity_available"></td>
             <td>
+              <input type="file" (change)="onFileChange($event)">
+              <div *ngIf="product.image">
+                <img [src]="product.image" alt="Product Image" style="max-width: 100px;">
+                <button class="btn btn-sm btn-warning" (click)="deleteImage(product)">Delete Image</button>
+              </div>
               <button class="btn btn-sm btn-primary" (click)="updateProduct(product)">Save</button>
               <button class="btn btn-sm btn-secondary" (click)="cancelEdit()">Cancel</button>
             </td>
           </tr>
         </ng-template>
-      </ng-container>
+      </ng-container>      
     </tbody>
   </table>
 </div>
