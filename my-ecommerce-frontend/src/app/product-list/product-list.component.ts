@@ -37,6 +37,10 @@ export class ProductListComponent implements OnInit {
     }
   }
 
+  toggleDescription(product: any): void {
+    product.showFullDescription = !product.showFullDescription;
+  }
+
   addProduct(): void {
     const formData = new FormData();
     formData.append('name', this.newProduct.name);
@@ -113,7 +117,7 @@ export class ProductListComponent implements OnInit {
   fetchProduct(productId: number): void {
     this.productService.getProductById(productId).subscribe(
       (response: any) => {
-        this.product = response;
+        this.products = response;
       },
       (error: any) => {
         console.error('Error fetching product:', error);
