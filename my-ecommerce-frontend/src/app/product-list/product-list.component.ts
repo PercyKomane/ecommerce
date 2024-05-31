@@ -10,7 +10,7 @@ import { ProductService } from '../services/product.service';
 })
 export class ProductListComponent implements OnInit {
   products: any[] = [];
-  newProduct: any = {};
+  newProduct: any = {}; // this holds new products from user that will be sent to the backend
   editingProductId: number | null = null;
   selectedFile: File | null = null;
 
