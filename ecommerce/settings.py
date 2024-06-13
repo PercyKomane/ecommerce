@@ -113,15 +113,14 @@ WSGI_APPLICATION = 'ecommerce.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'ecommerce_db',  # Your MySQL database name
-        'USER': 'root',  # Your MySQL username (default is usually 'root')
-        'PASSWORD': '',  # Your MySQL password (leave empty if none)
-        'HOST': 'localhost',  # Or the IP address where MySQL is running
-        'PORT': '3306',  # Or the port MySQL is running on
+        'ENGINE': 'django.db.backends.mysql', 
+        'NAME': os.getenv('ecommerce_db'), # Your MySQL database name
+        'USER': os.getenv('root'),  # Your MySQL username (default is usually 'root')
+        'PASSWORD': os.getenv(''), # Your MySQL password (leave empty if none)
+        'HOST': os.getenv('localhost'), # Or the IP address where MySQL is running
+        'PORT': os.getenv('3306'), # Or the port MySQL is running on
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -158,6 +157,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
+
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
