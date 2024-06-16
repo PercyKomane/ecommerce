@@ -1,22 +1,21 @@
-# Dockerfile for Django Backend
+# backend/Dockerfile
 
-# Use the official Python image from the Docker Hub
-FROM python:3.9
+FROM python:3.8-slim
 
-# Set the working directory in the container
+# Set environment variables
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+
+# Set work directory
 WORKDIR /app
 
-# Copy the requirements file into the container
+# Install dependencies
 COPY requirements.txt /app/
+RUN pip install --upgrade pip
+RUN pip install -r requirements.txt
 
-# Install the Python dependencies
-RUN pip install --no-cache-dir -r requirements.txt
-
-# Copy the rest of the application code into the container
+# Copy project
 COPY . /app/
 
-# Expose port 8000 for the Django application
-EXPOSE 8000
-
-# Run the Django application
-CMD ["gunicorn", "ecommerce.wsgi:application", "--bind", "0.0.0.0:8000"]
+# Install gunicorn
+RUN pip install gunicorn
